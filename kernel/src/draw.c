@@ -21,7 +21,7 @@ void place_rect(struct limine_framebuffer *framebuffer, int x, int y, int height
 }
 
 void set_background(struct limine_framebuffer *framebuffer, uint32_t color){
-    place_rect(framebuffer, 0, 0, framebuffer->height, framebuffer->width, 0xffffff);
+    place_rect(framebuffer, 0, 0, framebuffer->height, framebuffer->width, color);
 }
 
 
