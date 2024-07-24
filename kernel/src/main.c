@@ -60,14 +60,16 @@ void _start(void) {
         hcf();
     }
 
+
     struct limine_framebuffer *framebuffer = framebuffer_request.response->framebuffers[0];
-    for(int i = 0; i < 1000; i++){
-        place_rect(framebuffer, 0, 0 - i, framebuffer->height, framebuffer->width, 0xffffff);
-        place_rect(framebuffer, 10, 10 - i, 90, 90, 0xFF0000);
-        place_rect(framebuffer, 10, 90 - i, 90, 90, 0x3cdfff);
-        place_rect(framebuffer, 90, 10 - i, 90, 90, 0x00FF00);
-        place_rect(framebuffer, 90, 90 - i, 90, 90, 0xFFFF00);
-    }
+    set_background(framebuffer, 0xffffff);
+    place_rect(framebuffer, 10, 10, 90, 90, 0xFF0000);
+    place_rect(framebuffer, 10, 90, 90, 90, 0x3cdfff);
+    place_rect(framebuffer, 90, 10, 90, 90, 0x00FF00);
+    place_rect(framebuffer, 90, 90, 90, 90, 0xFFFF00);
+    
+
+    
     
 
 
