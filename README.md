@@ -1,6 +1,7 @@
 # Neodows
 
-Project is based on the Portable Limine C Template
+More stuff will be added as i continue to work on the operating system
 
 
-https://github.com/limine-bootloader/limine-c-template-portable
+thanks to limine for the bootloader and templete
+https://github.com/limine-bootloader
