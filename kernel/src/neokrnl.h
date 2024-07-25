@@ -12,7 +12,7 @@
 
 
 
-
+void kbug_check(struct limine_framebuffer* framebuffer);
 
 
 

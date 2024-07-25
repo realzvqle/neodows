@@ -88,7 +88,7 @@ kernel:
 $(IMAGE_NAME).iso: limine/limine kernel
 	rm -rf iso_root
 	mkdir -p iso_root/boot
-	cp -v kernel/bin-$(KARCH)/kernel iso_root/boot/
+	cp -v kernel/bin-$(KARCH)/neokrnl.exe iso_root/boot/
 	mkdir -p iso_root/boot/limine
 	cp -v limine.cfg iso_root/boot/limine/
 	mkdir -p iso_root/EFI/BOOT
