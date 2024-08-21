@@ -1,5 +1,5 @@
 
-![nightpane logo](resources/nightpane.png "Logo")
+![nightpane logo](resources\Nightpane.png "Logo")
 Logo Made by [RDesign](https://github.com/aliasmaychange)
 # Nightpane
 
