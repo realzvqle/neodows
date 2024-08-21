@@ -71,15 +71,15 @@ void _entry(void) {
     kputs(10, 10, "Type some stuff!", 1, 0xffffff);
     kbug_check("driver initlization failed");
 
-    // int i = 0;
-    // int j = 1;
-    // while(1){
-    //     i+=5;
-    //     kchar(0 + (i), 30 * j, 1, read_key(), 0xffffff);
-    //     if(i % (51*3) == 0){
-    //         j++;
-    //     }
-    // }
+    int i = 0;
+    int j = 1;
+    while(1){
+        i+=5;
+        kchar(0 + (i), 30 * j, 1, read_key(), 0xffffff);
+        if(i % (51*3) == 0){
+            j++;
+        }
+    }
     
 
     
