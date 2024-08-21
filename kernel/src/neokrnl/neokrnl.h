@@ -7,13 +7,12 @@
 #include <stdint.h>
 #include <stddef.h>
 #include <stdbool.h>
-#include "limine.h"
+#include "../limine.h"
 
 
 
 
-void kbug_check(struct limine_framebuffer* framebuffer);
-
+void kbug_check(char* error);
 
 
 
