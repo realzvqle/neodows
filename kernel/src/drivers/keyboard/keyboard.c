@@ -77,3 +77,5 @@ char read_key() {
     uint8_t scan_code = read_ps2_key_from_port(); 
     return code_to_char(scan_code);
 }
+
+
