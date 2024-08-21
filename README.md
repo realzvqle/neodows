@@ -1,3 +1,6 @@
+
+![nightpane logo](resources/nightpane.png "Logo")
+Logo Made by [RDesign](https://github.com/aliasmaychange)
 # Nightpane
 
 More stuff will be added as i continue to work on the operating system
