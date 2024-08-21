@@ -3,7 +3,7 @@ override MAKEFLAGS += -rR
 
 # This is the name that our final kernel executable will have.
 # Change as needed.
-override KERNEL := neokrnl.exe
+override KERNEL := nposkrnl.exe
 
 # Convenience macro to reliably declare user overridable variables.
 define DEFAULT_VAR =

@@ -1,4 +1,4 @@
-# Neodows
+# Nightpane
 
 More stuff will be added as i continue to work on the operating system
 

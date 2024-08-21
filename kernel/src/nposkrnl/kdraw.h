@@ -6,7 +6,7 @@
 
 
 
-#include "neokrnl.h"
+#include "nposkrnl.h"
 
 
 

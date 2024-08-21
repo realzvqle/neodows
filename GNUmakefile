@@ -15,7 +15,7 @@ endef
 override DEFAULT_KARCH := x86_64
 $(eval $(call DEFAULT_VAR,KARCH,$(DEFAULT_KARCH)))
 
-override IMAGE_NAME := neodows-$(KARCH)
+override IMAGE_NAME := nightpane-$(KARCH)
 
 .PHONY: all
 all: $(IMAGE_NAME).iso
@@ -87,9 +87,9 @@ kernel:
 
 $(IMAGE_NAME).iso: limine/limine kernel
 	rm -rf iso_root
-	mkdir -p iso_root/neodows/system
+	mkdir -p iso_root/nightpane/system
 	mkdir -p iso_root/boot
-	cp -v kernel/bin-$(KARCH)/neokrnl.exe iso_root/neodows/system
+	cp -v kernel/bin-$(KARCH)/nposkrnl.exe iso_root/nightpane/system
 	mkdir -p iso_root/boot/limine
 	cp -v limine.cfg iso_root/boot/limine/
 	mkdir -p iso_root/EFI/BOOT
@@ -130,7 +130,7 @@ ifeq ($(KARCH),x86_64)
 endif
 	mformat -i $(IMAGE_NAME).hdd@@1M
 	mmd -i $(IMAGE_NAME).hdd@@1M ::/EFI ::/EFI/BOOT ::/boot ::/boot/limine
-	mcopy -i $(IMAGE_NAME).hdd@@1M kernel/bin-$(KARCH)/neokrnl.exe ::/boot
+	mcopy -i $(IMAGE_NAME).hdd@@1M kernel/bin-$(KARCH)/nposkrnl.exe ::/boot
 	mcopy -i $(IMAGE_NAME).hdd@@1M limine.cfg ::/boot/limine
 ifeq ($(KARCH),x86_64)
 	mcopy -i $(IMAGE_NAME).hdd@@1M limine/limine-bios.sys ::/boot/limine

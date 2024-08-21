@@ -44,7 +44,7 @@ static inline void kend_kernel(){
 void kbug_check(char* error){
     kbackground(0x9905C2);
     kputs(700, 600, ":(", 10, 0xffffff);
-    kputs(10, 10, "neokrnl has ran into an issue and has been shutdown to prevent damage", 1, 0xffffff);
+    kputs(10, 10, "Nightpane has ran into an issue and has been shutdown to prevent damage", 1, 0xffffff);
     kputs(10, 20, "please contact zvqle with this error code", 1, 0xffffff);
     kputs(10, 60, error, 1, 0xffffff);
 
@@ -66,10 +66,9 @@ void _entry(void) {
 
     framebuffer = framebuffer_request.response->framebuffers[0];
 
-    kbackground(0x2429A);
-    kputs(0, 0, "Neodows Build Indev", 1, 0xffffff);
+    kbackground(0x000000);
+    kputs(0, 0, "Nightpane Build Indev", 1, 0xffffff);
     kputs(10, 10, "Type some stuff!", 1, 0xffffff);
-    kbug_check("driver initlization failed");
 
     int i = 0;
     int j = 1;
