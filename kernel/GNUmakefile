@@ -94,31 +94,7 @@ ifeq ($(KARCH),x86_64)
         -m elf_x86_64
     override KNASMFLAGS += \
         -f elf64
-# else ifeq ($(KARCH),aarch64)
-#     ifeq ($(KCC_IS_CLANG),yes)
-#         override KCC += \
-#             -target aarch64-elf
-#     endif
-#     override KCFLAGS += \
-#         -mgeneral-regs-only
-#     override KLDFLAGS += \
-#         -m aarch64elf
-# else ifeq ($(KARCH),riscv64)
-#     ifeq ($(KCC_IS_CLANG),yes)
-#         override KCC += \
-#             -target riscv64-elf
-#         override KCFLAGS += \
-#             -march=rv64imac
-#     else
-#         override KCFLAGS += \
-#             -march=rv64imac_zicsr_zifencei
-#     endif
-#     override KCFLAGS += \
-#         -mabi=lp64 \
-#         -mno-relax
-#     override KLDFLAGS += \
-#         -m elf64lriscv \
-#         --no-relax
+
 else
     $(error Architecture $(KARCH) not supported)
 endif

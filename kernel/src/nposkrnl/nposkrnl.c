@@ -1,5 +1,5 @@
 #include "kfont.h"
-#include "../drivers/keyboard/keyboard.h"
+#include "../kshell/kshell.h"
 
 __attribute__((used, section(".requests")))
 static volatile LIMINE_BASE_REVISION(2);
@@ -67,18 +67,11 @@ void _entry(void) {
     framebuffer = framebuffer_request.response->framebuffers[0];
 
     kbackground(0x000000);
-    kputs(0, 0, "Nightpane Build Indev", 1, 0xffffff);
-    kputs(10, 10, "Type some stuff!", 1, 0xffffff);
+    kputs(0, 0, "Nightpane Build Indev\nCopyright \"zvqle\"", 1, 0x33FFBD);
 
     int i = 0;
     int j = 1;
-    while(1){
-        i+=5;
-        kchar(0 + (i), 30 * j, 1, read_key(), 0xffffff);
-        if(i % (51*3) == 0){
-            j++;
-        }
-    }
+    init_shell();
     
 
     

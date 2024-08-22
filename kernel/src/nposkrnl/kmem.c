@@ -1,4 +1,4 @@
-#include "nposkrnl.h"
+#include "kmem.h"
 
 
 void *memcpy(void *dest, const void *src, size_t n) {
