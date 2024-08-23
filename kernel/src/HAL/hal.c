@@ -21,4 +21,8 @@ void outb(uint16_t port, uint8_t value){
     NULL;
 }
 
+void cli(){
+    __asm__ __volatile__("cli"); 
+
+}
 

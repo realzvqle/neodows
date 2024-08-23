@@ -10,14 +10,12 @@
 #include <stdint.h>
 #include <stddef.h>
 #include <stdbool.h>
-#include "../HAL/hal.h"
-#include "../nposkrnl/kfont.h"
 
 
 
 
-void init_shell();
 
+void shell_print(char* status);
 
 
 

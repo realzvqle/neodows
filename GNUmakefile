@@ -31,15 +31,15 @@ run-hdd: run-hdd-$(KARCH)
 
 .PHONY: run-x86_64
 run-x86_64: ovmf $(IMAGE_NAME).iso
-	qemu-system-x86_64 -cdrom nightpane-x86_64.iso -boot d -d int,cpu_reset
+	qemu-system-x86_64 -cdrom nightpane-x86_64.iso -boot d -d int,cpu_reset -audiodev pa,id=speaker -machine pcspk-audiodev=speaker
 
 run-debug: ovmf $(IMAGE_NAME).iso
-	qemu-system-x86_64 -cdrom nightpane-x86_64.iso -boot d -d int,cpu_reset -s -S
+	qemu-system-x86_64 -cdrom nightpane-x86_64.iso -boot d -d int,cpu_reset -s -S -audiodev pa,id=speaker -machine pcspk-audiodev=speaker
 	gdb target remote :1234
 
 .PHONY: run-hdd-x86_64
 run-hdd-x86_64: ovmf $(IMAGE_NAME).hdd
-	qemu-system-x86_64 -hda $(IMAGE_NAME).hdd -m 2048
+	qemu-system-x86_64 -hda $(IMAGE_NAME).hdd -m 2048 -audiodev pa,id=speaker -machine pcspk-audiodev=speaker
 
 
 

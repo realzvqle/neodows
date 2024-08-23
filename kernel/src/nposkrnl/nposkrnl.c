@@ -1,6 +1,6 @@
 #include "kfont.h"
 #include "../kshell/kshell.h"
-
+#include "../drivers/keyboard/keyboard.h"
 __attribute__((used, section(".requests")))
 static volatile LIMINE_BASE_REVISION(2);
 
@@ -33,15 +33,18 @@ static void halt(void) {
 }
 
 
+dev npdev;
+
+
 static inline void kend_kernel(){
-    kputs(30, 30, "nothing to do", 1, 0x8B0101);
-    kputs(30, 40, "halting kernel", 1, 0x8B0101);
-    kputs(30, 50, "it is safe to turn off your computer", 1, 0x8B0101);
+    kputs(620, 10, "nothing to do", 1, 0x8B0101);
+    kputs(620, 20, "halting kernel", 1, 0x8B0101);
+    //kputs(30, 10, "it is safe to turn off your computer", 1, 0x8B0101);
 
     halt();
 }
 
-void kbug_check(char* error){
+void kernel_suicide(char* error){
     kbackground(0x9905C2);
     kputs(700, 600, ":(", 10, 0xffffff);
     kputs(10, 10, "Nightpane has ran into an issue and has been shutdown to prevent damage", 1, 0xffffff);
@@ -69,11 +72,13 @@ void _entry(void) {
     kbackground(0x000000);
     kputs(0, 0, "Nightpane Build Indev\nCopyright \"zvqle\"", 1, 0x33FFBD);
 
-    int i = 0;
-    int j = 1;
-    init_shell();
-    
+    while(1){
+        shell_print("Press 1 for Fun, Press 2 for Bad");
+        char key = read_key();
+        if(key == '2') kernel_suicide("Fuck yoy");
+        else continue;
 
+    }
     
     kend_kernel();
 }

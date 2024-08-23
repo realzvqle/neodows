@@ -1,7 +1,7 @@
 #include "keyboard.h"
 
 
-
+extern dev npdev;
 
 static inline char code_to_char(uint8_t makeCode) {
     switch (makeCode) {
@@ -60,6 +60,14 @@ static inline char code_to_char(uint8_t makeCode) {
     }
 }
 
+
+
+void keyboard_install(){
+    npdev.dev[npdev.index] = "Keyboard Device";
+    shell_print("Installed Keyboard Device");
+
+    npdev.index++;
+}
 
 
 uint8_t read_ps2_key_from_port(){

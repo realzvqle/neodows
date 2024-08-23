@@ -12,7 +12,14 @@
 
 
 
-void kbug_check(char* error);
+
+typedef struct {
+    int index;;
+    char* dev[512];
+    
+} dev;
+
+void kernel_suicide(char* error);
 
 
 
