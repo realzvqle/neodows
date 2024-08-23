@@ -39,15 +39,9 @@ run-debug: ovmf $(IMAGE_NAME).iso
 
 .PHONY: run-hdd-x86_64
 run-hdd-x86_64: ovmf $(IMAGE_NAME).hdd
-	qemu-system-x86_64 -M q35 -m 2G -bios ovmf-x86_64/OVMF.fd -hda $(IMAGE_NAME).hdd
+	qemu-system-x86_64 -hda $(IMAGE_NAME).hdd -m 2048
 
-.PHONY: run-bios
-run-bios: $(IMAGE_NAME).iso
-	qemu-system-x86_64 -M q35 -m 2G -cdrom $(IMAGE_NAME).iso -boot d
 
-.PHONY: run-hdd-bios
-run-hdd-bios: $(IMAGE_NAME).hdd
-	qemu-system-x86_64 -M q35 -m 2G -hda $(IMAGE_NAME).hdd
 
 .PHONY: ovmf
 ovmf: ovmf-$(KARCH)
@@ -97,8 +91,8 @@ ifeq ($(KARCH),x86_64)
 
 endif
 	mformat -i $(IMAGE_NAME).hdd@@1M
-	mmd -i $(IMAGE_NAME).hdd@@1M ::/EFI ::/EFI/BOOT ::/boot ::/boot/limine
-	mcopy -i $(IMAGE_NAME).hdd@@1M kernel/bin-$(KARCH)/nposkrnl.exe ::/boot
+	mmd -i $(IMAGE_NAME).hdd@@1M ::/EFI ::/EFI/BOOT ::/boot ::/boot/limine ::/nightpane ::/nightpane/system
+	mcopy -i $(IMAGE_NAME).hdd@@1M kernel/bin-$(KARCH)/nposkrnl.exe ::/nightpane/system
 	mcopy -i $(IMAGE_NAME).hdd@@1M limine.cfg ::/boot/limine
 ifeq ($(KARCH),x86_64)
 	mcopy -i $(IMAGE_NAME).hdd@@1M limine/limine-bios.sys ::/boot/limine
