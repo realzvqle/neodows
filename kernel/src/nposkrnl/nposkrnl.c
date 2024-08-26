@@ -71,12 +71,12 @@ void _entry(void) {
 
     kbackground(0x000000);
     kputs(0, 0, "Nightpane Build Indev\nCopyright \"zvqle\"", 1, 0x33FFBD);
+    
+    keyboard_install();
 
     while(1){
-        shell_print("Press 1 for Fun, Press 2 for Bad");
         char key = read_key();
-        if(key == '2') kernel_suicide("Fuck yoy");
-        else continue;
+        shell_print(&key);
 
     }
     

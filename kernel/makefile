@@ -127,7 +127,7 @@ src/limine.h:
 # GNU binutils, for silly reasons, forces the ELF type to ET_EXEC even for
 # relocatable PIEs, if the base load address is non-0.
 # See https://sourceware.org/bugzilla/show_bug.cgi?id=31795 for more information.
-bin-$(KARCH)/$(KERNEL): GNUmakefile linker-$(KARCH).ld $(OBJ)
+bin-$(KARCH)/$(KERNEL): makefile linker-$(KARCH).ld $(OBJ)
 	mkdir -p "$$(dirname $@)"
 	$(KLD) $(OBJ) $(KLDFLAGS) -o $@
 	printf '\003' | dd of=$@ bs=1 count=1 seek=16 conv=notrunc 2>/dev/null
@@ -136,17 +136,17 @@ bin-$(KARCH)/$(KERNEL): GNUmakefile linker-$(KARCH).ld $(OBJ)
 -include $(HEADER_DEPS)
 
 # Compilation rules for *.c files.
-obj-$(KARCH)/%.c.o: src/%.c GNUmakefile src/limine.h
+obj-$(KARCH)/%.c.o: src/%.c makefile src/limine.h
 	mkdir -p "$$(dirname $@)"
 	$(KCC) $(KCFLAGS) $(KCPPFLAGS) -c $< -o $@
 
 # Compilation rules for *.S files.
-obj-$(KARCH)/%.S.o: src/%.S GNUmakefile
+obj-$(KARCH)/%.S.o: src/%.S makefile
 	mkdir -p "$$(dirname $@)"
 	$(KCC) $(KCFLAGS) $(KCPPFLAGS) -c $< -o $@
 
 # Compilation rules for *.asm (nasm) files.
-obj-$(KARCH)/%.asm.o: src/%.asm GNUmakefile
+obj-$(KARCH)/%.asm.o: src/%.asm makefile
 	mkdir -p "$$(dirname $@)"
 	nasm $(KNASMFLAGS) $< -o $@
 

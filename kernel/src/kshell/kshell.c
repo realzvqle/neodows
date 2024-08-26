@@ -24,10 +24,8 @@ void shell_print(char* status) {
     j += 5;
     i++;
     j = 0;
-
     if ((20 * i) >= framebuffer->height) {
         krect(0, 40, framebuffer->height - 40, framebuffer->width, 0xffffff);
         i = 3;
-    }
-    
+    } 
 }
