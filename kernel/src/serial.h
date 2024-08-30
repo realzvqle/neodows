@@ -6,7 +6,7 @@
 #include <stdint.h>
 
 
-
+void serial_putchar(char c);
 void serial_print(const char *s) ;
 
 #endif
