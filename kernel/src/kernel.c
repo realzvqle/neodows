@@ -1,7 +1,6 @@
 #include "npstdlib.h"
 #include "serial.h"
 #include "hal.h"
-#include "malloc.h"
 #include <stdint.h>
 
 volatile uint8_t *uaurt = (uint8_t *) 0x09000000;

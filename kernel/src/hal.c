@@ -3,7 +3,7 @@
 
 
 
-uint8_t read32(uint8_t* addr) {
+uint8_t read32(volatile uint8_t* addr) {
     return *((volatile uint8_t *) addr);
 }
 
