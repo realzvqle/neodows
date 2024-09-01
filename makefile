@@ -21,4 +21,4 @@ clean:
 	rm -rf bin
 run:
 	make all
-	qemu-system-aarch64 -machine virt -cpu cortex-a76 -kernel bin/nposkrnl.exe -device virtio-gpu-pci -display sdl -serial mon:stdio
+	qemu-system-aarch64 -machine virt -cpu cortex-a76 -kernel bin/nposkrnl.exe -device virtio-gpu -display sdl -serial mon:stdio 

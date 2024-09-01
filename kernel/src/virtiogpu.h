@@ -20,6 +20,8 @@ enum virtio_gpu_shm_id {
 };
 
 
-
-
+uint32_t get_framebuffer_info();
+void set_pixel(int x, int y, uint32_t color, int screen_width);
+void clear_screen(uint32_t color, int screen_width, int screen_height);
+void virtio_gpu_init();
 #endif

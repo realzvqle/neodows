@@ -1,16 +1,21 @@
 #include "npstdlib.h"
+#include "rndnum.h"
 #include "serial.h"
 #include "hal.h"
-#include <stdint.h>
+#include "timer.h"
 
-volatile uint8_t *uaurt = (uint8_t *) 0x09000000;
 
 void kmain(void) {
     serial_print("\n\nNightpane Kernel\n\n");
     
-    uint8_t idk = read32(uaurt);
-    char buffer[612];
-    i_to_a(idk, buffer);
-    serial_print(buffer);
+    while(1){
+        uint8_t idk = generate_random_numbers(get_timer_value());
+        char buffer[612];
+        i_to_a(idk, buffer);
+        serial_print(buffer);
+        serial_print("\n");
+        sleep(1);
+    }
+    
     halt();
 }
