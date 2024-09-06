@@ -1,6 +1,11 @@
+#include "kdraw.h"
 #include "kfont.h"
 #include "../kshell/kshell.h"
 #include "../drivers/keyboard/keyboard.h"
+#include "../drivers/speaker/speaker.h"
+
+#include "rndnumgen/rndnumgen.h"
+
 __attribute__((used, section(".requests")))
 static volatile LIMINE_BASE_REVISION(2);
 
@@ -55,6 +60,24 @@ void kernel_suicide(char* error){
     halt();
 }
 
+void rainbow_kernel_suicide(char* error){
+    kbackground(0x000000);
+    while(1){
+        kputs(700, 600, ":(", 10, generate_random_numbers(0x000000, 0xffffff));
+        kputs(10, 10, "Nightpane has ran into an issue and has been shutdown to prevent damage", 1, generate_random_numbers(0x000000, 0xffffff));
+        kputs(10, 20, "please contact zvqle with this error code", 1, generate_random_numbers(0x000000, 0xffffff));
+        kputs(10, 60, error, 1, generate_random_numbers(0x000000, 0xffffff));
+    }
+    halt();
+}
+
+
+bool NP_SUCCESS(NPSTATUS status){
+    if(status == 0xc000000) return true;
+    else return false;
+}
+
+
 void _entry(void) {
 
     if (LIMINE_BASE_REVISION_SUPPORTED == false) {
@@ -69,16 +92,25 @@ void _entry(void) {
 
     framebuffer = framebuffer_request.response->framebuffers[0];
 
-    kbackground(0x000000);
-    kputs(0, 0, "Nightpane Build Indev\nCopyright \"zvqle\"", 1, 0x33FFBD);
+    kputs(0, 0, "Nightpane Build Indev\nCopyright \"zvqle\"", 1, generate_random_numbers(0x111111, 0xffffff));
     
-    keyboard_install();
+    NPSTATUS status = keyboard_install();
+    if(NP_SUCCESS(status)) shell_print("pass");
+    else shell_print("fail");
+    shell_print("\n\n\n");
 
-    while(1){
-        char key = read_key();
-        shell_print(&key);
+    NPSTATUS statu = speaker_install();
+    if(NP_SUCCESS(statu)) shell_print("pass");
+    else shell_print("fail");
 
+    shell_print("\n\n\n");
+    shell_print("Devices_______________________");
+    for(int i = 0; i < npdev.index; i++){
+        shell_print(npdev.dev[i]);
     }
+    
+    
+    
     
     kend_kernel();
 }

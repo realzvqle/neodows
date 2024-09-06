@@ -15,8 +15,7 @@
 
 uint8_t read_key_from_port();
 char read_key();
-void keyboard_install();
-
+NPSTATUS keyboard_install();
 
 
 

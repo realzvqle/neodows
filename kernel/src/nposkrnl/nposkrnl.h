@@ -10,18 +10,17 @@
 #include "../limine.h"
 
 
-
+#define NPSTATUS uint64_t
 
 
 typedef struct {
-    int index;;
-    char* dev[512];
-    
+    int index;
+    char* dev[512]; 
 } dev;
 
 void kernel_suicide(char* error);
-
-
+void rainbow_kernel_suicide(char* error);
+bool NP_SUCCESS(NPSTATUS status);
 
 
 

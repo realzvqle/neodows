@@ -12,6 +12,7 @@
 
 uint8_t inb(uint16_t port);
 void outb(uint16_t port, uint8_t value);
+uint64_t get_cpu_cycles();
 void cli();
 
 #endif

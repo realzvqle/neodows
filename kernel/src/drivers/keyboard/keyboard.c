@@ -1,5 +1,5 @@
 #include "keyboard.h"
-
+#include "../drivers.h"
 
 extern dev npdev;
 
@@ -62,11 +62,9 @@ static inline char code_to_char(uint8_t makeCode) {
 
 
 
-void keyboard_install(){
-    npdev.dev[npdev.index] = "Keyboard Device";
-    shell_print("Installed Keyboard Device");
-
-    npdev.index++;
+NPSTATUS keyboard_install(){
+    NPSTATUS status = add_device("PS/2 Keyboard");
+    return status;
 }
 
 

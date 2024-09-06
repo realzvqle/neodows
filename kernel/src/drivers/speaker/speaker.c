@@ -1,5 +1,6 @@
 #include "speaker.h"
 #include <stdint.h>
+#include "../drivers.h"
 
 
 
@@ -7,10 +8,9 @@
 extern dev npdev;
 
 
-void speaker_install(){
-    npdev.dev[npdev.index] = "PC Speaker Device";
-    shell_print("Installed Speaker Device");
-    npdev.index++;
+NPSTATUS speaker_install(){
+    NPSTATUS status = add_device("Speaker");
+    return status;
 }
 
 static inline void disable_speaker(){

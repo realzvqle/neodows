@@ -19,8 +19,7 @@
 
 
 void play_sound(uint32_t freq);
-void speaker_install();
-
+NPSTATUS speaker_install();
 
 
 
