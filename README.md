@@ -3,7 +3,8 @@
 Logo Made by [RDesign](https://github.com/aliasmaychange)
 # Nightpane
 
-some minor restart
+More stuff will be added as i continue to work on the operating system
 
-first of all now its an ARM based OS to **start**, im planning to make the core system easy to port to other architectures, but for now, it'll be just for ARM
 
+thanks to limine for the bootloader and templete
+https://github.com/limine-bootloader
