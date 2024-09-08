@@ -35,7 +35,7 @@ override DEFAULT_KLD := ld.lld
 $(eval $(call DEFAULT_VAR,KLD,$(DEFAULT_KLD)))
 
 # User controllable C flags.
-override DEFAULT_KCFLAGS := -g -O2 -pipe
+override DEFAULT_KCFLAGS := -g -O2 -pipe -fPIC
 $(eval $(call DEFAULT_VAR,KCFLAGS,$(DEFAULT_KCFLAGS)))
 
 # User controllable C preprocessor flags. We set none by default.
@@ -44,12 +44,12 @@ $(eval $(call DEFAULT_VAR,KCPPFLAGS,$(DEFAULT_KCPPFLAGS)))
 
 ifeq ($(KARCH), x86_64)
     # User controllable nasm flags.
-    override DEFAULT_KNASMFLAGS := -F dwarf -g
+    override DEFAULT_KNASMFLAGS := -F dwarf -g 
     $(eval $(call DEFAULT_VAR,KNASMFLAGS,$(DEFAULT_KNASMFLAGS)))
 endif
 
 # User controllable linker flags. We set none by default.
-override DEFAULT_KLDFLAGS :=
+override DEFAULT_KLDFLAGS := 
 $(eval $(call DEFAULT_VAR,KLDFLAGS,$(DEFAULT_KLDFLAGS)))
 
 # Internal C flags that should not be changed by the user.

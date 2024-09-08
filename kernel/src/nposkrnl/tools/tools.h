@@ -18,7 +18,7 @@
 char* str_cat(char* destination, const char* source);
 
 char* i_to_a(int num, char* str);
-
+char* i_to_hex(int num, char* str);
 
 
 

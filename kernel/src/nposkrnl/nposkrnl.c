@@ -1,10 +1,10 @@
 #include "kdraw.h"
 #include "kfont.h"
 #include "../kshell/kshell.h"
-#include "../drivers/keyboard/keyboard.h"
-#include "../drivers/speaker/speaker.h"
-
+#include "../processes/process.h"
+#include "malloc.h"
 #include "rndnumgen/rndnumgen.h"
+#include "tools/tools.h"
 
 __attribute__((used, section(".requests")))
 static volatile LIMINE_BASE_REVISION(2);
@@ -38,6 +38,7 @@ static void halt(void) {
 }
 
 
+NPSTATUS GLOBAL_STATUS = 0xc000000;
 dev npdev;
 
 
@@ -49,24 +50,40 @@ static inline void kend_kernel(){
     halt();
 }
 
-void kernel_suicide(char* error){
+void kernel_suicide(NPSTATUS error){
+    char buffer[512];
+    i_to_hex(error, buffer);
     kbackground(0x9905C2);
     kputs(700, 600, ":(", 10, 0xffffff);
     kputs(10, 10, "Nightpane has ran into an issue and has been shutdown to prevent damage", 1, 0xffffff);
     kputs(10, 20, "please contact zvqle with this error code", 1, 0xffffff);
-    kputs(10, 60, error, 1, 0xffffff);
+    kputs(10, 60, buffer, 1, 0xffffff);
 
 
     halt();
 }
 
-void rainbow_kernel_suicide(char* error){
+void test_kernel_suicide(char* idk){
+    kbackground(0x9905C2);
+    kputs(700, 600, ":(", 10, 0xffffff);
+    kputs(10, 10, "Nightpane has ran into an issue and has been shutdown to prevent damage", 1, 0xffffff);
+    kputs(10, 20, "please contact zvqle with this error code", 1, 0xffffff);
+    kputs(10, 60, idk, 1, 0xffffff);
+
+
+    halt();
+}
+
+void rainbow_kernel_suicide(NPSTATUS error){
+    char buffer[512];
+    i_to_hex(error, buffer);
     kbackground(0x000000);
+
     while(1){
         kputs(700, 600, ":(", 10, generate_random_numbers(0x000000, 0xffffff));
         kputs(10, 10, "Nightpane has ran into an issue and has been shutdown to prevent damage", 1, generate_random_numbers(0x000000, 0xffffff));
         kputs(10, 20, "please contact zvqle with this error code", 1, generate_random_numbers(0x000000, 0xffffff));
-        kputs(10, 60, error, 1, generate_random_numbers(0x000000, 0xffffff));
+        kputs(10, 60, buffer, 1, generate_random_numbers(0x000000, 0xffffff));
     }
     halt();
 }
@@ -75,6 +92,17 @@ void rainbow_kernel_suicide(char* error){
 bool NP_SUCCESS(NPSTATUS status){
     if(status == 0xc000000) return true;
     else return false;
+}
+
+
+int process(char* args){
+   
+    shell_print(args);
+    while(1){
+        continue;
+    }
+    
+    return 0;
 }
 
 
@@ -91,22 +119,16 @@ void _entry(void) {
 
 
     framebuffer = framebuffer_request.response->framebuffers[0];
-
+    kheap_init();
     kputs(0, 0, "Nightpane Build Indev\nCopyright \"zvqle\"", 1, generate_random_numbers(0x111111, 0xffffff));
-    
-    NPSTATUS status = keyboard_install();
-    if(NP_SUCCESS(status)) shell_print("pass");
-    else shell_print("fail");
-    shell_print("\n\n\n");
+    create_single_threaded_process(process, 20, "hello");
+    create_single_threaded_process(process, 20, "hi");
 
-    NPSTATUS statu = speaker_install();
-    if(NP_SUCCESS(statu)) shell_print("pass");
-    else shell_print("fail");
-
-    shell_print("\n\n\n");
-    shell_print("Devices_______________________");
-    for(int i = 0; i < npdev.index; i++){
-        shell_print(npdev.dev[i]);
+    while(1){
+        if(!NP_SUCCESS(GLOBAL_STATUS)){
+            kernel_suicide(GLOBAL_STATUS);
+        } 
+        continue;
     }
     
     
