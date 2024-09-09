@@ -8,7 +8,7 @@
 
 
 
-
+void cmd_checker(char* command);
 
 
 

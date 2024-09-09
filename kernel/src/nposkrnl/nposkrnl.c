@@ -1,6 +1,8 @@
 #include "kdraw.h"
 #include "kfont.h"
 #include "../kshell/kshell.h"
+#include "../kshell/cmdchecker.h"
+
 #include "../processes/process.h"
 #include "malloc.h"
 #include "rndnumgen/rndnumgen.h"
@@ -42,6 +44,14 @@ static inline void kend_kernel(){
     //kputs(30, 10, "it is safe to turn off your computer", 1, 0x8B0101);
 
     halt();
+}
+
+void flash_bang(){
+    while(1){
+        kbackground(generate_random_numbers(0x000000, 0xffffff));
+    }
+    
+
 }
 
 void kernel_suicide(NPSTATUS error){
@@ -110,21 +120,9 @@ void _entry(void) {
             kernel_suicide(GLOBAL_STATUS);
         } 
         char* idk = shell_get(1024);
-        if(str_cmp(idk, "hello")){
-            shell_print("Hi!!!");
-        }
-        char* buffer;
-        char* secondbuffer;
-
-        str_tok(&buffer, 512,&secondbuffer, 512, ' ', idk);
-        shell_print(buffer);
-        shell_print(secondbuffer);
-        kfree(idk);
-        kfree(buffer);
-        kfree(secondbuffer);
-
-
-        
+        cmd_checker(idk);
+    
+        kfree(idk);  
         continue;
     }
     

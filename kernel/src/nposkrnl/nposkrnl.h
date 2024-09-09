@@ -22,7 +22,7 @@ typedef struct {
 void kernel_suicide(NPSTATUS error);
 void rainbow_kernel_suicide(NPSTATUS error);
 bool NP_SUCCESS(NPSTATUS status);
-
+void flash_bang();
 
 
 #endif
