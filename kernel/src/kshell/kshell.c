@@ -1,6 +1,7 @@
 #include "kshell.h"
 #include "../nposkrnl/kfont.h"
-
+#include "../nposkrnl/malloc.h"
+#include "../drivers/keyboard/keyboard.h"
 extern struct limine_framebuffer *framebuffer;
 
 
@@ -28,4 +29,82 @@ void shell_print(char* status) {
         krect(0, 40, framebuffer->height - 40, framebuffer->width, 0xffffff);
         i = 3;
     } 
+}
+
+
+
+static inline char* array_adder(size_t size) {
+    char* array = kmalloc(size);
+    // if (!array) {
+    //     return NULL;  
+    // }
+
+    for (int jj = 0; jj < size - 1; jj++) {
+        array[jj] = '\0';  
+    }
+    static char former_char;
+
+    int index = 0;
+    while (index < (size - 1)) { 
+
+        char character = read_key();
+        // if(character == former_char){
+        //     continue;
+        // }
+        if(character == NULL){
+
+            continue;
+        }
+        if (character == '\n') {
+            array[index] = '\0';  
+            break;
+        }
+        array[index] = character; 
+        char temp[2];
+        temp[0] = character;
+        temp[1] = '\0';  
+        index++;
+        kputs(1 + j, 20 * i, temp, 1, 0x000000);
+        j += 10;
+        former_char = character;
+        
+    }
+
+    if (index == (size - 1)) {
+        array[size - 1] = '\0';  
+    }
+
+    return array;
+}
+
+
+char* shell_get(size_t size) {
+    static bool init = false;
+    if(!init){
+        krect(0, 40, framebuffer->height - 40, framebuffer->width, 0xffffff);
+        init = true;
+    }               
+    if ((10 + j) >= framebuffer->width) {
+        i++;
+        j = 0;
+    }
+    kputs(1 + j, 20 * i, ">   ", 1, 0x000000);
+    j += 10;
+    //j += 5;
+    //i++;
+    char* result = array_adder(size);
+    // for(int i = 0; i < size; i++){
+    //     shell_print("ARRAY");
+    //     shell_print(&result[i]);
+    // }
+    //kputs(90, 10, result, 2, 0x9905C2);
+    
+    //j = 0;
+    i++;
+    if ((20 * i) >= framebuffer->height) {
+        krect(0, 40, framebuffer->height - 40, framebuffer->width, 0xffffff);
+        i = 3;
+    } 
+    shell_print("");
+    return result;
 }

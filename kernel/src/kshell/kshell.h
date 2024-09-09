@@ -16,8 +16,7 @@
 
 
 void shell_print(char* status);
-
-
+char* shell_get(size_t size);
 
 
 

@@ -98,17 +98,33 @@ void _entry(void) {
 
     framebuffer = framebuffer_request.response->framebuffers[0];
     kheap_init();
+
+
     kputs(0, 0, "Nightpane Build Indev\nCopyright \"zvqle\"", 1, generate_random_numbers(0x111111, 0xffffff));
 
-    create_process(process, 20, "hello");
-    // create_process(process, 20, "hi");
+    shell_print("");
+    shell_print("Nightpane Kernel Shell");
 
     while(1){
         if(!NP_SUCCESS(GLOBAL_STATUS)){
             kernel_suicide(GLOBAL_STATUS);
         } 
+        char* idk = shell_get(1024);
+        if(str_cmp(idk, "hello")){
+            shell_print("Hi!!!");
+        }
+        char* buffer;
+        char* secondbuffer;
+
+        str_tok(&buffer, 512,&secondbuffer, 512, ' ', idk);
+        shell_print(buffer);
+        shell_print(secondbuffer);
+        kfree(idk);
+        kfree(buffer);
+        kfree(secondbuffer);
 
 
+        
         continue;
     }
     
@@ -117,3 +133,6 @@ void _entry(void) {
     
     kend_kernel();
 }
+
+
+

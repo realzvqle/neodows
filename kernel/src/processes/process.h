@@ -45,6 +45,14 @@ typedef struct _PROCESS_TABLE {
     int count;
 } PROCESS_TABLE;
 
+typedef struct {
+    uint32_t eax, ebx, ecx, edx, esi, edi, esp, ebp, eip, eflags, cr3;
+} Registers;
+
+typedef struct Task {
+    Registers regs;
+    struct Task *next;
+} Task;
 
 NPSTATUS create_single_threaded_process(TENTRY entry_point, int vm_size, char* arguments);
 NPSTATUS create_process(TENTRY entry_point, int vm_size, char* arguments);
