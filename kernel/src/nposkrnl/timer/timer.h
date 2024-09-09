@@ -18,7 +18,7 @@
 
 
 
-
+uint8_t get_rtc_seconds();
 
 
 

@@ -4,6 +4,7 @@
 #include "../processes/process.h"
 #include "malloc.h"
 #include "rndnumgen/rndnumgen.h"
+#include "timer/timer.h"
 #include "tools/tools.h"
 
 __attribute__((used, section(".requests")))
@@ -27,18 +28,11 @@ __attribute__((used, section(".requests_end_marker")))
 static volatile LIMINE_REQUESTS_END_MARKER;
 
 
-static void halt(void) {
-    for (;;) {
-#if defined (__x86_64__)
-        asm ("hlt");
-#elif defined (__aarch64__) || defined (__riscv)
-        asm ("wfi");
-#endif
-    }
-}
+
 
 
 NPSTATUS GLOBAL_STATUS = 0xc000000;
+int STATE = SINGLE_TASKED;
 dev npdev;
 
 
@@ -58,17 +52,6 @@ void kernel_suicide(NPSTATUS error){
     kputs(10, 10, "Nightpane has ran into an issue and has been shutdown to prevent damage", 1, 0xffffff);
     kputs(10, 20, "please contact zvqle with this error code", 1, 0xffffff);
     kputs(10, 60, buffer, 1, 0xffffff);
-
-
-    halt();
-}
-
-void test_kernel_suicide(char* idk){
-    kbackground(0x9905C2);
-    kputs(700, 600, ":(", 10, 0xffffff);
-    kputs(10, 10, "Nightpane has ran into an issue and has been shutdown to prevent damage", 1, 0xffffff);
-    kputs(10, 20, "please contact zvqle with this error code", 1, 0xffffff);
-    kputs(10, 60, idk, 1, 0xffffff);
 
 
     halt();
@@ -96,12 +79,7 @@ bool NP_SUCCESS(NPSTATUS status){
 
 
 int process(char* args){
-   
     shell_print(args);
-    while(1){
-        continue;
-    }
-    
     return 0;
 }
 
@@ -121,13 +99,16 @@ void _entry(void) {
     framebuffer = framebuffer_request.response->framebuffers[0];
     kheap_init();
     kputs(0, 0, "Nightpane Build Indev\nCopyright \"zvqle\"", 1, generate_random_numbers(0x111111, 0xffffff));
-    create_single_threaded_process(process, 20, "hello");
-    create_single_threaded_process(process, 20, "hi");
+
+    create_process(process, 20, "hello");
+    // create_process(process, 20, "hi");
 
     while(1){
         if(!NP_SUCCESS(GLOBAL_STATUS)){
             kernel_suicide(GLOBAL_STATUS);
         } 
+
+
         continue;
     }
     

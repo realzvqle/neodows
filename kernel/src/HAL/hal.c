@@ -26,8 +26,15 @@ void cli(){
 
 }
 
-uint64_t get_cpu_cycles() {
+uint64_t rdtsc() {
     uint32_t lo, hi;
     asm volatile ("rdtsc" : "=a" (lo), "=d" (hi));
     return ((uint64_t)hi << 32) | lo;
+}
+
+
+void halt(void) {
+    for (;;) {
+        asm ("hlt");
+    }
 }

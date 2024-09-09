@@ -6,10 +6,10 @@ extern test_kernel_suicide
 
 
 
-call_death:
-    
-    ret
+; switch_task:
+;     push ebx
+;     push esi
+;     push edi
+;     push edp
 
-
-
-message db "Neodows Build INDEV (RESET)", 0
+;     mov edi, [cuurent_task_TSC]

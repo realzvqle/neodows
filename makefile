@@ -31,15 +31,15 @@ run-hdd: run-hdd-$(KARCH)
 
 .PHONY: run-x86_64
 run-x86_64: ovmf $(IMAGE_NAME).iso
-	qemu-system-x86_64 -cdrom nightpane-x86_64.iso -boot d -d int,cpu_reset -audiodev pa,id=speaker -machine pcspk-audiodev=speaker -display sdl
+	qemu-system-x86_64 -cdrom nightpane-x86_64.iso -boot d -d int,cpu_reset -audiodev pa,id=speaker -machine pcspk-audiodev=speaker 
 
 run-debug: ovmf $(IMAGE_NAME).hdd
-	qemu-system-x86_64 -cdrom nightpane-x86_64.iso -boot d -d int,cpu_reset -s -S -audiodev pa,id=speaker -machine pcspk-audiodev=speaker -display sdl
+	qemu-system-x86_64 -cdrom nightpane-x86_64.iso -boot d -d int,cpu_reset -s -S -audiodev pa,id=speaker -machine pcspk-audiodev=speaker 
 	gdb target remote :1234
 
 .PHONY: run-hdd-x86_64
 run-hdd-x86_64: ovmf $(IMAGE_NAME).hdd
-	qemu-system-x86_64 -hda $(IMAGE_NAME).hdd -m 2048 -audiodev pa,id=speaker -machine pcspk-audiodev=speaker -display sdl
+	qemu-system-x86_64 -hda $(IMAGE_NAME).hdd -m 2048 -audiodev pa,id=speaker -machine pcspk-audiodev=speaker 
 
 
 
@@ -59,12 +59,15 @@ limine/limine:
 .PHONY: kernel
 kernel:
 	$(MAKE) -C kernel
+	$(MAKE) -C darkifedVM
 
 $(IMAGE_NAME).iso: limine/limine kernel
 	rm -rf iso_root
 	mkdir -p iso_root/nightpane/system
 	mkdir -p iso_root/boot
 	cp -v kernel/bin-$(KARCH)/nposkrnl.exe iso_root/nightpane/system
+	cp -v darkifedVM/bin-$(KARCH)/darkifed.exe iso_root/nightpane/system
+
 	mkdir -p iso_root/boot/limine
 	cp -v limine.cfg iso_root/boot/limine/
 	mkdir -p iso_root/EFI/BOOT
@@ -93,6 +96,7 @@ endif
 	mformat -i $(IMAGE_NAME).hdd@@1M
 	mmd -i $(IMAGE_NAME).hdd@@1M ::/EFI ::/EFI/BOOT ::/boot ::/boot/limine ::/nightpane ::/nightpane/system
 	mcopy -i $(IMAGE_NAME).hdd@@1M kernel/bin-$(KARCH)/nposkrnl.exe ::/nightpane/system
+	mcopy -i $(IMAGE_NAME).hdd@@1M darkifedVM/bin-$(KARCH)/darkifed.exe ::/nightpane/system
 	mcopy -i $(IMAGE_NAME).hdd@@1M limine.cfg ::/boot/limine
 ifeq ($(KARCH),x86_64)
 	mcopy -i $(IMAGE_NAME).hdd@@1M limine/limine-bios.sys ::/boot/limine

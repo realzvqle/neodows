@@ -11,7 +11,8 @@
 
 
 #define NPSTATUS uint64_t
-
+#define SINGLE_TASKED 0
+#define MULTI_TASKED 1
 
 typedef struct {
     int index;
@@ -21,7 +22,6 @@ typedef struct {
 void kernel_suicide(NPSTATUS error);
 void rainbow_kernel_suicide(NPSTATUS error);
 bool NP_SUCCESS(NPSTATUS status);
-void test_kernel_suicide(char* idk);
 
 
 
