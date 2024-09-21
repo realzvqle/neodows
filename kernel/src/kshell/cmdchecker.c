@@ -22,7 +22,7 @@ void cmd_checker(char* command){
                     shell_print("Hello!");
                     break;
                 case 1:
-                    shell_print("Nightpane Version FINAL");
+                    shell_print("Nightpane Version Indev");
                     break;
                 case 2:
                     kernel_suicide(0xc000000);
