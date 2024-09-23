@@ -9,7 +9,7 @@
 
 
 #include "../nposkrnl/nposkrnl.h"
-#include "../kshell/kshell.h"
+#include "../kshell/kterm.h"
 
 
 NPSTATUS add_device(char* device_name);

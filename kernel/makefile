@@ -39,12 +39,12 @@ override DEFAULT_KCFLAGS := -g -O2 -pipe -fPIC
 $(eval $(call DEFAULT_VAR,KCFLAGS,$(DEFAULT_KCFLAGS)))
 
 # User controllable C preprocessor flags. We set none by default.
-override DEFAULT_KCPPFLAGS :=
+override DEFAULT_KCPPFLAGS := -fPIC
 $(eval $(call DEFAULT_VAR,KCPPFLAGS,$(DEFAULT_KCPPFLAGS)))
 
 ifeq ($(KARCH), x86_64)
     # User controllable nasm flags.
-    override DEFAULT_KNASMFLAGS := -F dwarf -g 
+    override DEFAULT_KNASMFLAGS := -F dwarf -g
     $(eval $(call DEFAULT_VAR,KNASMFLAGS,$(DEFAULT_KNASMFLAGS)))
 endif
 

@@ -8,8 +8,8 @@
 
 
 
-void cmd_checker(char* command);
 
+void cmd_checker(char* command, char* arguments);
 
 
 

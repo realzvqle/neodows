@@ -1,6 +1,9 @@
 #include "hal.h"
 
+#include "../nposkrnl/kdraw.h"
+#include "../nposkrnl/kfont.h"
 
+#include "../nposkrnl/tools/tools.h"
 
 
 
@@ -14,6 +17,15 @@ uint8_t inb(uint16_t port){
     return result;
 }
 
+uint32_t get_cpu_frequency() {
+    uint32_t eax, ebx, ecx, edx;
+    __asm__ volatile("cpuid"
+                     : "=b"(ebx), "=a"(eax), "=c"(ecx), "=d"(edx)
+                     : "a"(0x16)); 
+    return ebx; 
+}
+
+
 
 void outb(uint16_t port, uint8_t value){
     __asm__ __volatile__("outb %0, %1" : "=a"(value) : "Nd"(port)); 
@@ -23,6 +35,11 @@ void outb(uint16_t port, uint8_t value){
 
 void cli(){
     __asm__ __volatile__("cli"); 
+
+}
+
+void sti(){
+    __asm__ __volatile__("sti"); 
 
 }
 
@@ -38,3 +55,7 @@ void halt(void) {
         asm ("hlt");
     }
 }
+
+
+
+

@@ -6,30 +6,14 @@
 
 
 
-
-#include <stdint.h>
-#include <stddef.h>
-#include <stdbool.h>
-
-
+#include "../nposkrnl/nposkrnl.h"
+#include "../nposkrnl/malloc.h"
+#include "cmdchecker.h"
+#include "kterm.h"
 
 
 
-void shell_print(char* status);
-char* shell_get(size_t size);
-
-
-
-
-
-
-
-
-
-
-
-
-
+NPSTATUS shell_start();
 
 
 

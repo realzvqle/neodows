@@ -19,10 +19,9 @@ typedef struct {
     char* dev[512]; 
 } dev;
 
-void kernel_suicide(NPSTATUS error);
-void rainbow_kernel_suicide(NPSTATUS error);
+void rainbow_kernel_suicide(char* error);
 bool NP_SUCCESS(NPSTATUS status);
 void flash_bang();
-
+void kernel_suicide(char* error);
 
 #endif

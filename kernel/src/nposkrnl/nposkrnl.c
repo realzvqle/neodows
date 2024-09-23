@@ -1,7 +1,8 @@
 #include "kdraw.h"
 #include "kfont.h"
+#include "../kshell/kterm.h"
 #include "../kshell/kshell.h"
-#include "../kshell/cmdchecker.h"
+#include "../HAL/hal.h"
 
 #include "../processes/process.h"
 #include "malloc.h"
@@ -54,33 +55,32 @@ void flash_bang(){
 
 }
 
-void kernel_suicide(NPSTATUS error){
-    char buffer[512];
-    i_to_hex(error, buffer);
-    kbackground(0x9905C2);
-    kputs(700, 600, ":(", 10, 0xffffff);
-    kputs(10, 10, "Nightpane has ran into an issue and has been shutdown to prevent damage", 1, 0xffffff);
-    kputs(10, 20, "please contact zvqle with this error code", 1, 0xffffff);
-    kputs(10, 60, buffer, 1, 0xffffff);
 
 
-    halt();
-}
-
-void rainbow_kernel_suicide(NPSTATUS error){
-    char buffer[512];
-    i_to_hex(error, buffer);
+void rainbow_kernel_suicide(char* error){
+    
     kbackground(0x000000);
 
     while(1){
         kputs(700, 600, ":(", 10, generate_random_numbers(0x000000, 0xffffff));
         kputs(10, 10, "Nightpane has ran into an issue and has been shutdown to prevent damage", 1, generate_random_numbers(0x000000, 0xffffff));
         kputs(10, 20, "please contact zvqle with this error code", 1, generate_random_numbers(0x000000, 0xffffff));
-        kputs(10, 60, buffer, 1, generate_random_numbers(0x000000, 0xffffff));
+        kputs(10, 60, error, 1, generate_random_numbers(0x000000, 0xffffff));
     }
+    cli();
     halt();
 }
 
+void kernel_suicide(char* error){
+    
+    kbackground(0x9905C2);
+    kputs(700, 600, ":(", 10, 0xffffff);
+    kputs(10, 10, "Nightpane has ran into an issue and has been shutdown to prevent damage", 1, 0xffffff);
+    kputs(10, 20, "please contact zvqle with these error code", 1, 0xffffff);
+    kputs(10, 60, error, 1, 0xffffff);
+    cli();
+    halt();
+}
 
 bool NP_SUCCESS(NPSTATUS status){
     if(status == 0xc000000) return true;
@@ -89,9 +89,10 @@ bool NP_SUCCESS(NPSTATUS status){
 
 
 int process(char* args){
-    shell_print(args);
+    term_print(args);
     return 0;
 }
+
 
 
 void _entry(void) {
@@ -102,27 +103,24 @@ void _entry(void) {
 
     if (framebuffer_request.response == NULL
      || framebuffer_request.response->framebuffer_count < 1) {
+       
         halt();
     }
 
-
     framebuffer = framebuffer_request.response->framebuffers[0];
     kheap_init();
-
-
-    kputs(0, 0, "Nightpane Build Indev\nCopyright \"zvqle\"", 1, generate_random_numbers(0x111111, 0xffffff));
-
-    shell_print("");
-    shell_print("Nightpane Kernel Shell");
+    int color = generate_random_numbers(0x111111, 0xffffff);
+    kputs(0, 0, os_version(), 1, color);
+    kputs(0, 0, "\nCopyright \"zvqle\"", 1, color);
+    
+    term_print("");
+    term_print("Nightpane Kernel Shell");
 
     while(1){
         if(!NP_SUCCESS(GLOBAL_STATUS)){
-            kernel_suicide(GLOBAL_STATUS);
+            rainbow_kernel_suicide("GLOBAL STATUS INVALID");
         } 
-        char* idk = shell_get(1024);
-        cmd_checker(idk);
-    
-        kfree(idk);  
+        GLOBAL_STATUS = shell_start();
         continue;
     }
     

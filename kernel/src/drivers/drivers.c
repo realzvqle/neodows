@@ -25,7 +25,7 @@ NPSTATUS add_device(char* device_name){
     char buffer[255];
     str_cat(buffer, "Installed ");
     str_cat(buffer, device_name);
-    shell_print(buffer);
+    term_print(buffer);
     
     npdev.index++;
 

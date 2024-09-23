@@ -1,5 +1,5 @@
 #include "process.h"
-#include "../kshell/kshell.h"
+#include "../kshell/kterm.h"
 
 
 PROCESS_TABLE process_table = { .count = 0 };
@@ -11,7 +11,7 @@ extern int STATE;
 
 NPSTATUS create_process(TENTRY entry_point, int vm_size, char* arguments){
     if(STATE == SINGLE_TASKED) return create_single_threaded_process(entry_point, vm_size, arguments);
-    else if(STATE == MULTI_TASKED) shell_print("No Multitasking Code Found");
+    else if(STATE == MULTI_TASKED) term_print("No Multitasking Code Found");
     else return 0xc000111;
     return 0xc000000;
 }

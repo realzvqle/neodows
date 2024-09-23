@@ -10,7 +10,6 @@
 
 #include "../../HAL/hal.h"
 #include "../../nposkrnl/nposkrnl.h"
-#include "../../kshell/kshell.h"
 
 
 
