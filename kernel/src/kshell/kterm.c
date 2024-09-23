@@ -17,18 +17,22 @@ void term_print(char* status) {
         krect(0, 40, framebuffer->height - 40, framebuffer->width, 0xffffff);
         init = true;
     }               
-    if ((10 + j) >= framebuffer->width) {
-        i++;
-        j = 0;
-    }
+    
     kputs(1 + j, 20 * i, status, 1, 0x000000);
     j += 5;
     i++;
     j = 0;
+   
     if ((20 * i) >= framebuffer->height) {
         krect(0, 40, framebuffer->height - 40, framebuffer->width, 0xffffff);
         i = 3;
     } 
+}
+
+
+void term_clear(){
+    krect(0, 40, framebuffer->height - 40, framebuffer->width, 0xffffff);
+    i = 3;
 }
 
 
@@ -65,6 +69,11 @@ static inline char* array_adder(size_t size) {
         temp[1] = '\0';  
         index++;
         kputs(1 + j, 20 * i, temp, 1, 0x000000);
+        if (j >= framebuffer->width) {
+            
+            i++;
+            j = 0;
+        }
         j += 10;
         former_char = character;
         
@@ -90,6 +99,7 @@ char* term_get(size_t size) {
     }
     kputs(1 + j, 20 * i, ">   ", 1, 0x000000);
     j += 10;
+    
     //j += 5;
     //i++;
     char* result = array_adder(size);

@@ -4,12 +4,10 @@
 #include "../kshell/kshell.h"
 #include "../HAL/hal.h"
 
-#include "../processes/process.h"
 #include "malloc.h"
 #include "rndnumgen/rndnumgen.h"
-#include "timer/timer.h"
 #include "tools/tools.h"
-
+#include "../drivers/serial/serial.h"
 __attribute__((used, section(".requests")))
 static volatile LIMINE_BASE_REVISION(2);
 
@@ -107,8 +105,14 @@ void _entry(void) {
         halt();
     }
 
+    
     framebuffer = framebuffer_request.response->framebuffers[0];
     kheap_init();
+    //NPSTATUS status = serial_install();
+//     if(!NP_SUCCESS(status)){
+//         kernel_suicide("Failed Installing Serial Driver");
+//     }
+//    // write_serial('a');
     int color = generate_random_numbers(0x111111, 0xffffff);
     kputs(0, 0, os_version(), 1, color);
     kputs(0, 0, "\nCopyright \"zvqle\"", 1, color);
