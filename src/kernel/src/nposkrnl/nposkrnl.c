@@ -68,11 +68,11 @@ void rainbow_kernel_suicide(char* error){
 
 void kernel_suicide(char* error){
     
-    kbackground(0x9905C2);
-    kputs(700, 600, ":(", 10, 0xffffff);
-    kputs(10, 10, "Nightpane has ran into an issue and has been shutdown to prevent damage", 1, 0xffffff);
-    kputs(10, 20, "please contact zvqle with these error code", 1, 0xffffff);
-    kputs(10, 60, error, 1, 0xffffff);
+    kbackground(0x24273a);
+    kputs(700, 600, ":(", 10, 0xcad3f5);
+    kputs(10, 10, "Nightpane has ran into an issue and has been shutdown to prevent damage", 1, 0xcad3f5);
+    kputs(10, 20, "please contact zvqle with these error code", 1, 0xcad3f5);
+    kputs(10, 60, error, 1, 0xcad3f5);
     cli();
     halt();
 }
@@ -107,12 +107,13 @@ void _entry(void) {
 //         kernel_suicide("Failed Installing Serial Driver");
 //     }
 //    // write_serial('a');
-    int color = generate_random_numbers(0x111111, 0xffffff);
-    kputs(0, 0, os_version(), 1, color);
-    kputs(0, 0, "\nCopyright \"zvqle\"", 1, color);
+    kbackground(0x626880);
+    kputs(0, 0, os_version(), 1, 0x99ffcc);
+    kputs(0, 0, "\nCopyright \"zvqle\"", 1, 0x99ffcc);
     
     term_print("\n");
-    bf_interperter("waaaaaaaaaaaaaaaaaaaah");
+    //bf_interperter("waaaaaaaaaaaaaaaaaaaah");
+    //kernel_suicide("error");
     while(1){
         if(!NP_SUCCESS(GLOBAL_STATUS)){
             rainbow_kernel_suicide("GLOBAL STATUS INVALID");
