@@ -32,7 +32,6 @@ run-x86_64: ovmf $(IMAGE_NAME).iso
 
 run-debug: ovmf $(IMAGE_NAME).hdd
 	qemu-system-x86_64 -cdrom nightpane-x86_64.iso -boot d -d int,cpu_reset -s -S -audiodev pa,id=speaker -machine pcspk-audiodev=speaker 
-	gdb target remote :1234
 
 .PHONY: run-hdd-x86_64
 run-hdd-x86_64: ovmf $(IMAGE_NAME).hdd
@@ -105,7 +104,7 @@ endif
 .PHONY: clean
 clean:
 	rm -rf iso_root *.iso *.hdd
-	$(MAKE) -C kernel clean
+	$(MAKE) -C src/kernel clean
 
 .PHONY: distclean
 distclean: clean

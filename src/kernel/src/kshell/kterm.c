@@ -60,6 +60,9 @@ static inline char* array_adder(size_t size) {
             krect(1 + j, 20 * i, 10, 10, 0xffffff);
             continue;
         }
+        else if(scan_code == 72){
+            
+        }
         else character = code_to_char(scan_code);
         
         // if(character == former_char){

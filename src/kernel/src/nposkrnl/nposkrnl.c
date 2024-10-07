@@ -7,7 +7,6 @@
 #include "malloc.h"
 #include "rndnumgen/rndnumgen.h"
 #include "tools/tools.h"
-#include "../drivers/serial/serial.h"
 __attribute__((used, section(".requests")))
 static volatile LIMINE_BASE_REVISION(2);
 
@@ -40,7 +39,7 @@ dev npdev;
 static inline void kend_kernel(){
     kputs(620, 10, "nothing to do", 1, 0x8B0101);
     kputs(620, 20, "halting kernel", 1, 0x8B0101);
-    //kputs(30, 10, "it is safe to turn off your computer", 1, 0x8B0101);
+    kputs(780, 10, "it is safe to turn off your computer", 1, 0x8B0101);
 
     halt();
 }
@@ -86,10 +85,7 @@ bool NP_SUCCESS(NPSTATUS status){
 }
 
 
-int process(char* args){
-    term_print(args);
-    return 0;
-}
+
 
 
 
@@ -117,8 +113,7 @@ void _entry(void) {
     kputs(0, 0, os_version(), 1, color);
     kputs(0, 0, "\nCopyright \"zvqle\"", 1, color);
     
-    term_print("");
-    term_print("Nightpane Kernel Shell");
+    term_print("\n");
 
     while(1){
         if(!NP_SUCCESS(GLOBAL_STATUS)){

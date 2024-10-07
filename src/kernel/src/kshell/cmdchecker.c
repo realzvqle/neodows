@@ -8,7 +8,8 @@
 
 #include "../cells/cellmgmt.h"
 
-char* cmdarray[] = {"echo", "ver", "crash", "wcell", "rcell", "secondstest", "help", "keyboardtest", "clear"};
+char* cmdarray[] = {"echo", "ver", "crash", "wcell", "rcell", "secondstest", "help", "keyboardtest", "clear",
+                    "trippy", "changef"};
 
 
 
@@ -95,6 +96,9 @@ void cmd_checker(char* command, char* arguments){
                 }
                 case 8:
                     term_clear();
+                    break;
+                case 9:
+                    rainbow_kernel_suicide("trippy =3");
                     break;
                 
             }
