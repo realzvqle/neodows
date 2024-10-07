@@ -5,11 +5,10 @@
 #include <stdint.h>
 #include "../nposkrnl/timer/timer.h"
 #include "../drivers/keyboard/keyboard.h"
-
 #include "../cells/cellmgmt.h"
-
+#include "../brainfuck/bf.h"
 char* cmdarray[] = {"echo", "ver", "crash", "wcell", "rcell", "secondstest", "help", "keyboardtest", "clear",
-                    "trippy", "changef"};
+                    "trippy", "bf", "neovim"};
 
 
 
@@ -99,6 +98,12 @@ void cmd_checker(char* command, char* arguments){
                     break;
                 case 9:
                     rainbow_kernel_suicide("trippy =3");
+                    break;
+                case 10:
+                    bf_interperter(arguments);
+                    break;
+                case 11:
+                    term_print("Neovim!");
                     break;
                 
             }

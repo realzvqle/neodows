@@ -3,7 +3,7 @@
 #include "../kshell/kterm.h"
 #include "../kshell/kshell.h"
 #include "../HAL/hal.h"
-
+#include "../brainfuck/bf.h"
 #include "malloc.h"
 #include "rndnumgen/rndnumgen.h"
 #include "tools/tools.h"
@@ -48,8 +48,6 @@ void flash_bang(){
     while(1){
         kbackground(generate_random_numbers(0x000000, 0xffffff));
     }
-    
-
 }
 
 
@@ -114,7 +112,7 @@ void _entry(void) {
     kputs(0, 0, "\nCopyright \"zvqle\"", 1, color);
     
     term_print("\n");
-
+    bf_interperter("waaaaaaaaaaaaaaaaaaaah");
     while(1){
         if(!NP_SUCCESS(GLOBAL_STATUS)){
             rainbow_kernel_suicide("GLOBAL STATUS INVALID");

@@ -29,6 +29,22 @@ void term_print(char* status) {
     } 
 }
 
+void term_puts(char* status) {
+    static bool init = false;
+    if(!init){
+        krect(0, 40, framebuffer->height - 40, framebuffer->width, 0xffffff);
+        init = true;
+    }               
+    
+    kputs(1 + j, 20 * i, status, 1, 0x000000);
+    j += 10;
+    
+   
+    if ((20 * i) >= framebuffer->height) {
+        krect(0, 40, framebuffer->height - 40, framebuffer->width, 0xffffff);
+        i = 3;
+    } 
+}
 
 void term_clear(){
     krect(0, 40, framebuffer->height - 40, framebuffer->width, 0xffffff);
@@ -60,9 +76,7 @@ static inline char* array_adder(size_t size) {
             krect(1 + j, 20 * i, 10, 10, 0xffffff);
             continue;
         }
-        else if(scan_code == 72){
-            
-        }
+        
         else character = code_to_char(scan_code);
         
         // if(character == former_char){
