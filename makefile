@@ -1,7 +1,5 @@
-# Nuke built-in rules and variables.
 override MAKEFLAGS += -rR
 
-# Convenience macro to reliably declare user overridable variables.
 define DEFAULT_VAR =
     ifeq ($(origin $1),default)
         override $(1) := $(2)
@@ -11,7 +9,6 @@ define DEFAULT_VAR =
     endif
 endef
 
-# Target architecture to build for. Default to x86_64.
 override DEFAULT_KARCH := x86_64
 $(eval $(call DEFAULT_VAR,KARCH,$(DEFAULT_KARCH)))
 
