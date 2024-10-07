@@ -3,7 +3,7 @@
 
 extern dev npdev;
 
-static inline char code_to_char(uint8_t makeCode) {
+char code_to_char(uint8_t makeCode) {
     switch (makeCode) {
         case 41: return '`';
         case 2: return '1';

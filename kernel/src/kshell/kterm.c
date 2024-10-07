@@ -47,16 +47,25 @@ static inline char* array_adder(size_t size) {
         array[jj] = '\0';  
     }
     static char former_char;
-
+    char character;
     int index = 0;
     while (index < (size - 1)) { 
 
-        char character = read_key();
+        uint8_t scan_code = read_ps2_key_from_port();
+        if(scan_code == 14){
+            if(index == 0) continue;
+            array[index] = '\0';
+            index--;
+            if(j > 0) j-=10;
+            krect(1 + j, 20 * i, 10, 10, 0xffffff);
+            continue;
+        }
+        else character = code_to_char(scan_code);
+        
         // if(character == former_char){
         //     continue;
         // }
         if(character == NULL){
-
             continue;
         }
         if (character == '\n') {
