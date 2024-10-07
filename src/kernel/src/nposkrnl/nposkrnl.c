@@ -1,9 +1,8 @@
 #include "kdraw.h"
 #include "kfont.h"
-#include "../kshell/kterm.h"
 #include "../kshell/kshell.h"
 #include "../HAL/hal.h"
-#include "../brainfuck/bf.h"
+#include "../drivers/keyboard/keyboard.h"
 #include "malloc.h"
 #include "rndnumgen/rndnumgen.h"
 #include "tools/tools.h"
@@ -68,11 +67,11 @@ void rainbow_kernel_suicide(char* error){
 
 void kernel_suicide(char* error){
     
-    kbackground(0x24273a);
-    kputs(700, 600, ":(", 10, 0xcad3f5);
-    kputs(10, 10, "Nightpane has ran into an issue and has been shutdown to prevent damage", 1, 0xcad3f5);
-    kputs(10, 20, "please contact zvqle with these error code", 1, 0xcad3f5);
-    kputs(10, 60, error, 1, 0xcad3f5);
+    kbackground(0x1e1e2e);
+    kputs(700, 600, ":(", 10, 0xcdd6f4);
+    kputs(10, 10, "Nightpane has ran into an issue and has been shutdown to prevent damage", 1, 0xcdd6f4);
+    kputs(10, 20, "please contact zvqle with these error code", 1, 0xcdd6f4);
+    kputs(10, 60, error, 1, 0xcdd6f4);
     cli();
     halt();
 }
@@ -81,6 +80,8 @@ bool NP_SUCCESS(NPSTATUS status){
     if(status == 0xc000000) return true;
     else return false;
 }
+
+//4E4E75
 
 
 
@@ -102,21 +103,22 @@ void _entry(void) {
     
     framebuffer = framebuffer_request.response->framebuffers[0];
     kheap_init();
+    keyboard_install();
     //NPSTATUS status = serial_install();
 //     if(!NP_SUCCESS(status)){
 //         kernel_suicide("Failed Installing Serial Driver");
 //     }
 //    // write_serial('a');
-    kbackground(0x626880);
+    kbackground(0x585b70);
     kputs(0, 0, os_version(), 1, 0x99ffcc);
     kputs(0, 0, "\nCopyright \"zvqle\"", 1, 0x99ffcc);
     
-    term_print("\n");
+    //term_print("\n\nh");
     //bf_interperter("waaaaaaaaaaaaaaaaaaaah");
     //kernel_suicide("error");
     while(1){
         if(!NP_SUCCESS(GLOBAL_STATUS)){
-            rainbow_kernel_suicide("GLOBAL STATUS INVALID");
+            kernel_suicide("GLOBAL STATUS INVALID");
         } 
         GLOBAL_STATUS = shell_start();
         continue;

@@ -14,17 +14,17 @@ int j = 0;
 void term_print(char* status) {
     static bool init = false;
     if(!init){
-        krect(0, 40, framebuffer->height - 40, framebuffer->width, 0x24273a);
+        krect(0, 40, framebuffer->height - 40, framebuffer->width, 0x1e1e2e);
         init = true;
     }               
     
-    kputs(1 + j, 20 * i, status, 1, 0xcad3f5);
+    kputs(1 + j, 20 * i, status, 1, 0xcdd6f4);
     j += 5;
     i++;
     j = 0;
    
     if ((20 * i) >= framebuffer->height) {
-        krect(0, 40, framebuffer->height - 40, framebuffer->width, 0x24273a);
+        krect(0, 40, framebuffer->height - 40, framebuffer->width, 0x1e1e2e);
         i = 3;
     } 
 }
@@ -32,22 +32,22 @@ void term_print(char* status) {
 void term_puts(char* status) {
     static bool init = false;
     if(!init){
-        krect(0, 40, framebuffer->height - 40, framebuffer->width, 0x24273a);
+        krect(0, 40, framebuffer->height - 40, framebuffer->width, 0x1e1e2e);
         init = true;
     }               
     
-    kputs(1 + j, 20 * i, status, 1, 0xcad3f5);
+    kputs(1 + j, 20 * i, status, 1, 0xcdd6f4);
     j += 10;
     
    
     if ((20 * i) >= framebuffer->height) {
-        krect(0, 40, framebuffer->height - 40, framebuffer->width, 0x24273a);
+        krect(0, 40, framebuffer->height - 40, framebuffer->width, 0x1e1e2e);
         i = 3;
     } 
 }
 
 void term_clear(){
-    krect(0, 40, framebuffer->height - 40, framebuffer->width, 0x24273a);
+    krect(0, 40, framebuffer->height - 40, framebuffer->width, 0x1e1e2e);
     i = 3;
 }
 
@@ -73,7 +73,7 @@ static inline char* array_adder(size_t size) {
             array[index] = '\0';
             index--;
             if(j > 0) j-=10;
-            krect(1 + j, 20 * i, 10, 10, 0x24273a);
+            krect(1 + j, 20 * i, 10, 10, 0x1e1e2e);
             continue;
         }
         
@@ -94,7 +94,7 @@ static inline char* array_adder(size_t size) {
         temp[0] = character;
         temp[1] = '\0';  
         index++;
-        kputs(1 + j, 20 * i, temp, 1, 0xcad3f5);
+        kputs(1 + j, 20 * i, temp, 1, 0xcdd6f4);
         if (j >= framebuffer->width) {
             
             i++;
@@ -116,14 +116,14 @@ static inline char* array_adder(size_t size) {
 char* term_get(size_t size) {
     static bool init = false;
     if(!init){
-        krect(0, 40, framebuffer->height - 40, framebuffer->width, 0x24273a);
+        krect(0, 40, framebuffer->height - 40, framebuffer->width, 0x1e1e2e);
         init = true;
     }               
     if ((10 + j) >= framebuffer->width) {
         i++;
         j = 0;
     }
-    kputs(1 + j, 20 * i, ">   ", 1, 0xcad3f5);
+    kputs(1 + j, 20 * i, ">   ", 1, 0xcdd6f4);
     j += 10;
     
     //j += 5;
@@ -138,7 +138,7 @@ char* term_get(size_t size) {
     //j = 0;
     i++;
     if ((20 * i) >= framebuffer->height) {
-        krect(0, 40, framebuffer->height - 40, framebuffer->width, 0x24273a);
+        krect(0, 40, framebuffer->height - 40, framebuffer->width, 0x1e1e2e);
         i = 3;
     } 
     term_print("");
