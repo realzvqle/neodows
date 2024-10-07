@@ -58,15 +58,15 @@ limine/limine:
 
 .PHONY: kernel
 kernel:
-	$(MAKE) -C kernel
-	$(MAKE) -C darkifedVM
+	$(MAKE) -C src/kernel
+	$(MAKE) -C src/darkifedVM
 
 $(IMAGE_NAME).iso: limine/limine kernel
 	rm -rf iso_root
 	mkdir -p iso_root/nightpane/system
 	mkdir -p iso_root/boot
-	cp -v kernel/bin-$(KARCH)/nposkrnl.exe iso_root/nightpane/system
-	cp -v darkifedVM/bin-$(KARCH)/darkifed.exe iso_root/nightpane/system
+	cp -v src/kernel/bin-$(KARCH)/nposkrnl.exe iso_root/nightpane/system
+	cp -v src/darkifedVM/bin-$(KARCH)/darkifed.exe iso_root/nightpane/system
 
 	mkdir -p iso_root/boot/limine
 	cp -v limine.cfg iso_root/boot/limine/
@@ -95,8 +95,8 @@ ifeq ($(KARCH),x86_64)
 endif
 	mformat -i $(IMAGE_NAME).hdd@@1M
 	mmd -i $(IMAGE_NAME).hdd@@1M ::/EFI ::/EFI/BOOT ::/boot ::/boot/limine ::/nightpane ::/nightpane/system
-	mcopy -i $(IMAGE_NAME).hdd@@1M kernel/bin-$(KARCH)/nposkrnl.exe ::/nightpane/system
-	mcopy -i $(IMAGE_NAME).hdd@@1M darkifedVM/bin-$(KARCH)/darkifed.exe ::/nightpane/system
+	mcopy -i $(IMAGE_NAME).hdd@@1M src/kernel/bin-$(KARCH)/nposkrnl.exe ::/nightpane/system
+	mcopy -i $(IMAGE_NAME).hdd@@1M src/darkifedVM/bin-$(KARCH)/darkifed.exe ::/nightpane/system
 	mcopy -i $(IMAGE_NAME).hdd@@1M limine.cfg ::/boot/limine
 ifeq ($(KARCH),x86_64)
 	mcopy -i $(IMAGE_NAME).hdd@@1M limine/limine-bios.sys ::/boot/limine
