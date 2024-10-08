@@ -104,11 +104,7 @@ void _entry(void) {
     framebuffer = framebuffer_request.response->framebuffers[0];
     kheap_init();
     keyboard_install();
-    //NPSTATUS status = serial_install();
-//     if(!NP_SUCCESS(status)){
-//         kernel_suicide("Failed Installing Serial Driver");
-//     }
-//    // write_serial('a');
+    
     kbackground(0x585b70);
     kputs(0, 0, " %%%%%%%%%%%%%%%                                                                                     \n", 1, 0x99ffcc); 
     kputs(0, 10, "%%%=== %%     %%%   ====  ==    ===            ===        ===                                        \n", 1, 0x99ffcc); 
@@ -119,11 +115,7 @@ void _entry(void) {
     kputs(0, 60, "%%     %%     @%%   ===  === =========  ====== ===  ===   +===== =======  ======== ===  ===  ====== \n", 1, 0x99ffcc); 
     kputs(0, 70, "%%%%%%%%%%%%%%%%%                       ======                   ===                                 \n", 1, 0x99ffcc); 
 
-    //kputs(0, 90, "\nCopyright \"zvqle\"", 1, 0x99ffcc);
-    
-    //term_print("h");
-       // term_print("h");
-
+   
     //bf_interperter("waaaaaaaaaaaaaaaaaaaah");
     //kernel_suicide("error");
     while(1){
