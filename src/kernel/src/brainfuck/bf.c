@@ -38,12 +38,8 @@ static inline void decrement_block_data(block_data* b){
 
 void bf_interperter(char* string){
 
-    static bool init = false;
-    if(!init){
-        create_block_data(&b, 1024);
-        memset(b.blocks, 0, b.block_size);
-        init = true;
-    }
+    create_block_data(&b, 1024);
+    memset(b.blocks, 0, b.block_size);
     char c;
     while ((c = *string++)) { 
         switch(c){
@@ -83,5 +79,7 @@ void bf_interperter(char* string){
             }
         }
     }
+
     term_print("");
+    kfree(b.blocks);
 }
